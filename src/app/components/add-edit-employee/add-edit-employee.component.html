@@ -1,0 +1,46 @@
+<h2 mat-dialog-title>{{ matDialogData.actionType === 'Edit' ? 'Edit Employee Details': 'Add Employee Details' }}</h2>
+<form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+<mat-dialog-content class="mat-typography">
+    <mat-form-field class="example-form-field">
+      <input matInput formControlName="name" placeholder="Employee Name" formControlName="name">
+    </mat-form-field>
+    <br>
+    <mat-form-field class="example-form-field">
+      <mat-select formControlName="role" placeholder="Select Role" name="role" >
+        <mat-option value="Product Designer">Product Designer</mat-option>
+        <mat-option value="Flutter Developer">Flutter Developer</mat-option>
+        <mat-option value="QA Tester">QA Tester</mat-option>
+        <mat-option value="Product Owner">Product Owner</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <div class="dateCls">
+      <mat-form-field class="example-form-field">
+        <mat-label>Today</mat-label>
+        <input matInput [matDatepicker]="startDate" formControlName="start_date"/>
+        <mat-datepicker-toggle matIconSuffix [for]="startDate"></mat-datepicker-toggle>
+        <mat-datepicker #startDate>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Save</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+      <mat-form-field class="example-form-field">
+        <mat-label>No date</mat-label>
+        <input matInput [matDatepicker]="endDate" formControlName="end_date"/>
+        <mat-datepicker-toggle matIconSuffix [for]="endDate"></mat-datepicker-toggle>
+        <mat-datepicker #endDate>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button matDatepickerApply>Save</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-stroked-button mat-dialog-close style="background-color: #EDF8FF; color: #1DA1F2;">Cancel</button>
+    <button type="submit" mat-flat-button style="background-color:#1DA1F2; color: white;" [mat-dialog-close]="true" cdkFocusInitial>{{ matDialogData.actionType === 'Edit' ? 'Update': 'Save'}}</button>
+  </mat-dialog-actions>
+</form>

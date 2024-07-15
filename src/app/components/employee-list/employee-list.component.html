@@ -1,0 +1,68 @@
+@if (!employeeSignal().length) {
+  <mat-card 
+    style="display: flex;
+    align-items: center;
+    padding: 20px;"
+  >
+    <mat-card-content style="display: flex; align-items: center; gap: 10px;">
+      <mat-icon class="no-records-icon">search</mat-icon>
+      <p>No employee records found</p>
+    </mat-card-content>
+  </mat-card>
+} @else {
+  @if(currentEmployeeCount) {
+    <mat-toolbar style="background-color: rgb(240 234 234);; color: #1DA1F2;">
+      <span>Current employees</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+  }
+  @for (employee of employeeSignal(); track $index) {
+    @if(employee.end_date === '') {
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title (click)="openDialog('Edit', employee)" style="cursor: pointer;">{{ employee.name }}</mat-card-title>
+          <mat-card-subtitle>{{ employee.role }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ 'From '+ employee.start_date }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <div class="button">
+            <mat-icon (click)="deleteEmployee(employee)" title="Delete" style="color: red; cursor: pointer;margin-right: 25px;">delete</mat-icon>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+    }
+  }
+  @if(previousEmployeeCount) {
+    <mat-toolbar style="background-color: rgb(240 234 234);; color: #1DA1F2;">
+      <span>Previous employees</span>
+      <span class="example-spacer"></span>
+    </mat-toolbar>
+  }
+  @for (employee of employeeSignal(); track $index) {
+    @if (employee.end_date !== '') {
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title (click)="openDialog('Edit', employee)" style="cursor: pointer;">{{ employee.name }}</mat-card-title>
+          <mat-card-subtitle>{{ employee.role }}</mat-card-subtitle>
+          <mat-card-subtitle>{{ employee.start_date +'-'+ employee.end_date }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions align="end">
+          <mat-icon (click)="deleteEmployee(employee)" title="Delete" style="color: red; cursor: pointer;margin-right: 25px;">delete</mat-icon>
+        </mat-card-actions>
+      </mat-card>
+    }
+  }
+}
+<section class="bottom-right">
+  <div class="example-button-row">
+    <div class="example-flex-container">
+      <div class="example-button-container">
+        <button (click)="openDialog('Add')" mat-fab style="background-color:#1DA1F2" aria-label="Example icon button with a delete icon">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
